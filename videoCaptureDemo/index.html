@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Video capture demo</title>
+</head>
+<body>
+<div style="text-align: center">
+    <h1>Live video from your camera. Smile ;)</h1>
+    <video autoplay controls></video>
+</div>
+
+<script>
+    var errorCallback = function (e) {
+        console.log("Problem with camera stream: ", e);
+        alert("It's not possible to get your camera stream.");
+    };
+
+    navigator.getUserMedia = navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia;
+
+    var video = document.querySelector('video');
+
+    if (navigator.getUserMedia) {
+        navigator.getUserMedia({audio: false, video: true}, function (stream) {
+            video.src = window.URL.createObjectURL(stream);
+        }, errorCallback);
+    } else {
+        alert("This browser does not support getUserMedia(): " + navigator.appVersion);
+    }
+
+</script>
+
+</body>
+</html>
